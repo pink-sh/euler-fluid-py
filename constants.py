@@ -1,0 +1,5 @@
+SIZE=40
+
+SCALE = 8
+
+PAGE_SIZE=640
