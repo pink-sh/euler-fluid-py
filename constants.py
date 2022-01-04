@@ -1,4 +1,4 @@
-SIZE=40
+SIZE=60
 
 SCALE = 8
 

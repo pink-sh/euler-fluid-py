@@ -57,7 +57,7 @@ class Container:
 	def Step(self):
 		self.physics.Diffuse(1, self.px, self.x, self.visc, self.dt, 16, self.size)
 		self.physics.Diffuse(2, self.py, self.y, self.visc, self.dt, 16, self.size)
-		self.physics.Diffuse(2, self.py, self.y, self.visc, self.dt, 16, self.size)
+		# self.physics.Diffuse(2, self.py, self.y, self.visc, self.dt, 16, self.size)
 
 		self.physics.Project(self.px, self.py, self.x, self.y, 16, self.size)
 
