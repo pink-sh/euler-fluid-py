@@ -11,7 +11,7 @@ def draw_rect(surface, color, rect):
 
 pygame.init()
 
-size = W, H = 640,640
+size = W, H = PAGE_SIZE,PAGE_SIZE
 
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('PyEulerean Fluid Simulator')
@@ -46,36 +46,36 @@ while running:
 
 	pos_x, pos_y = pygame.mouse.get_pos()
 
-	rel_pos_x = pos_x / boundSize
-	rel_pos_y = pos_y / boundSize
+	rel_pos_x = int(pos_x / boundSize)
+	rel_pos_y = int(pos_y / boundSize)
 
 
 
 	if mouseActive:
-		container.AddDensity(rel_pos_x, rel_pos_y, 200)
+		container.AddDensity(rel_pos_x, rel_pos_y, 500)
 
-	if mouseDragging:
-		pos_x, pos_y = pygame.mouse.get_pos()
+	# if mouseDragging:
+	amountX = int(pos_x - previousPosition[0])
+	amountY = int(pos_y - previousPosition[1])
 
-		rel_pos_x = pos_x / boundSize
-		rel_pos_y = pos_y / boundSize
-
-		amountX = x - previousPosition[0]
-		amountY = y - previousPosition[1]
-
-		container.AddVelocity(rel_pos_y, rel_pos_x, amountY/100, amountX/100)
+	container.AddVelocity(rel_pos_y, rel_pos_x, 1, 1)
 
 	container.Step()
+
+	container.FadeDensity(SIZE)
 
 	previousPosition = (rel_pos_x,rel_pos_y)
 
 	screen.fill((0, 0, 0))
 
-	for x in range(0,640,boundSize-1):
-		for y in range(0,640,boundSize-1):
+	for x in range(0,W,boundSize-1):
+		for y in range(0,H,boundSize-1):
 			alpha = 0
-			if int(x/boundSize) < SIZE and int(y/boundSize) < SIZE:
-				alpha = 255 if container.density[int(x/boundSize)][int(y/boundSize)] > 255 else container.density[int(x/boundSize)][int(y/boundSize)]
+			rel_x = int(x/boundSize)
+			rel_y = int(y/boundSize)
+			if rel_x < SIZE and rel_y < SIZE:
+				alpha = 255 if container.density[rel_x][rel_y] > 255 else container.density[rel_x][rel_y]
+
 			color = (22,54,100,alpha)
 			draw_rect(screen, color, pygame.Rect(x, y, boundSize, boundSize))
 

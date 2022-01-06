@@ -25,9 +25,15 @@ class Physics:
 		cRecip = 1.0 / c
 
 		for k in range(0,iter-1,1):
-			for j in range (1,N-2,1):
-				for i in range(1,N-2,1):
-					x[i][j] = (x0[i][j] + a *(x[i+1][j] + x[i-1][j] + x[i][j+1] + x[i][j-1] + x[i][j] + x[i][j] )) * cRecip
+			for i in range (1,N-2,1):
+				xx = x[i]
+				xx_ = x[i-1]
+				xx__ = x[i+1]
+				xx0 = x0[i]
+				for j in range(1,N-2,1):
+					# mm = 1
+					# x[i][j] = (x0[i][j] + a *(x[i+1][j] + x[i-1][j] + x[i][j+1] + x[i][j-1] + x[i][j] + x[i][j] )) * cRecip
+					x[i][j] = (xx0[j] + a *(xx_[j] + xx__[j] + xx[j+1] + xx[j-1] + xx[j] + xx[j] )) * cRecip
 			self.SetBnd(b, x, N)
 
 
